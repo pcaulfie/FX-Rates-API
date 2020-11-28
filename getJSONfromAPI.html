@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>Read Latest Euro to USD Exchange Rate from JSON @ exchangeratesapi</title>
+    </head>
+    <body>
+        <button onclick="readJSON()">go</button>
+        <div id="output1"></div>
+        <div id="output2"></div>
+        <div id="output3"></div>
+        <script>
+            function readJSON(){
+                $.ajax({
+                    "url":"https://api.exchangeratesapi.io/latest",
+                    "method":"GET",
+                    "data":"",
+                    "dataType":"JSON",
+                    "success":function(result){
+                        var rate = result.rates.USD;
+                        var date = result.date;
+                        var base = result.base;
+                        //console.log(rate);
+                        document.getElementById("output1").innerText= rate;
+                        document.getElementById("output2").innerText= base;
+                        document.getElementById("output3").innerText= date;
+
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("status:"+status+" message:"+error);
+                    }
+
+                });
+            }
+        
+        </script>
+    </body>
+</html>
