@@ -1,0 +1,62 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div id="create-update" style="display:none">
+            <h2>create-edit</h2>
+            <table id="createUpdateForm">
+                <tr> <!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+                    <td>ORDER_NUMBER</td>
+                    <td><input type="text" name="ORDER_NUMBER" id="idInput"></td>
+                </tr>
+                <tr>
+                    <td>CUSTOMER_NUMBER</td>
+                    <td><input type="number" name="CUSTOMER_NUMBER"></td>
+                </tr>
+                <tr>
+                    <td>PART</td>
+                    <td><input type="text" name="PART"></td>
+                </tr>
+                <tr>    
+                    <td>CURR_CODE</td>
+                    <td><input type="text" name="CURR_CODE"></td>
+                </tr>
+                <tr>
+                    <td>OPEN_QTY</td>
+                    <td><input type="number" name="OPEN_QTY"></td>
+                </tr>
+                <tr>
+                    <td>UNIT_PRICE_USD</td>
+                    <td><input type="currency" name="UNIT_PRICE_USD"></td>
+                </tr>
+                <tr>    
+                    <td>USD_EUR_FXRATE</td>
+                    <td><input type="currency" name="USD_EUR_FXRATE"></td>
+                </tr>
+                <tr>
+                    <td></td><td>
+                        <button id="create-button" onclick="doCreate()">Create</button>     
+                        <button id="update-button" onclick="doUpdate()">update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="display">
+            <h2>Open Orders Management System</h2>
+            <button onClick="showCreate()">Create</button>
+            <table id="bookTable" class="table">
+                <tr>
+                    <th>ID</th><th>ORDER_NUMBER</th><th>CUSTOMER_NUMBER</th><th>PART</th><th>CURR_CODE</th><th>OPEN_QTY</th><th>UNIT_PRICE_USD</th><th>USD_EUR_FXRATE</th><th></th><th></th>
+                </tr>
+                
+            </table>
+
+        </div>
+
+    </body>
+</html>

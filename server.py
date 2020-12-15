@@ -44,7 +44,6 @@ def create():
 
 #update
 # curl -X PUT -d "{\"USD_EUR_FXRATE\":1.33333}" -H Content-Type:application/json http://127.0.0.1:5000/orders
-# curl -H "Content-Type:application/json" -X PUT -d "{\"Price\":2000}" http://andrewbeatty1.pythonanywhere.com/books/7
 
 @app.route('/orders', methods=['PUT'])
 def update(): 
