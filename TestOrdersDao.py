@@ -23,7 +23,8 @@ order2 = {
     'CURR_CODE': "USD",
     'OPEN_QTY': 1400,
     'UNIT_PRICE_USD':89.54,
-    'USD_EUR_FXRATE':1.2128
+    'USD_EUR_FXRATE':1.2128,
+    'ID':2
 }
 
 #rates = {
@@ -46,7 +47,9 @@ rates2 = {
 #print(returnValue)
 #returnValue = ordersDao.update(rates2)
 #print(returnValue)
-returnValue = ordersDao.delete(14)
+returnValue = ordersDao.updateById(order2)
+#print(returnValue)
+#returnValue = ordersDao.delete(14)
 #print(returnValue)
 #returnValue = ordersDao.getAll()
 print(returnValue)

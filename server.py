@@ -54,6 +54,35 @@ def update():
     
     return jsonify(ordersDao.update(rates))
 
+#updateById
+# curl -X PUT -d "{\"ORDER_NUMBER\":45482, \"CUSTOMER_NUMBER\":2, \"PART\":\"ED800J\", \"CURR_CODE\":\"USD\", \"OPEN_QTY\":150, \"UNIT_PRICE_USD\":102.16, \"USD_EUR_FXRATE\":1.33333}" -H "content-type:application/json" http://127.0.0.1:5000/orders/3
+
+@app.route('/orders/<int:ID>', methods=['PUT'])
+def updateById(ID):
+    foundOrder=ordersDao.findById(ID)
+    print (foundOrder)
+    if foundOrder == {}:
+        return jsonify({}), 404
+    currentOrder = foundOrder
+    if 'ORDER_NUMBER' in request.json:
+        currentOrder['ORDER_NUMBER'] = request.json['ORDER_NUMBER']
+    if 'CUSTOMER_NUMBER' in request.json:
+        currentOrder['CUSTOMER_NUMBER'] = request.json['CUSTOMER_NUMBER']
+    if 'PART' in request.json:
+        currentOrder['PART'] = request.json['PART']
+    if 'CURR_CODE' in request.json:
+        currentOrder['CURR_CODE'] = request.json['CURR_CODE']
+    if 'OPEN_QTY' in request.json:
+        currentOrder['OPEN_QTY'] = request.json['OPEN_QTY']
+    if 'UNIT_PRICE_USD' in request.json:
+        currentOrder['UNIT_PRICE_USD'] = request.json['UNIT_PRICE_USD']
+    if 'USD_EUR_FXRATE' in request.json:
+        currentOrder['USD_EUR_FXRATE'] = request.json['USD_EUR_FXRATE']
+    
+    ordersDao.updateById(currentOrder)
+    
+    return jsonify(currentOrder)
+
 #delete
 # curl -X DELETE http://127.0.0.1:5000/orders/14
 

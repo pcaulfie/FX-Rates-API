@@ -79,16 +79,22 @@ class OrdersDao:
         result = cursor.fetchone()
         return self.convertToDict(result)    
 
-    #def update(self, orders):
-    #   cursor = self.db.cursor()
-    #   sql = "update orders set USD_EUR_FXRATE = %s where CURR_CODE = %s"
-    #   values = [
-    #       orders['USD_EUR_FXRATE'],
-    #       orders['CURR_CODE']         
-    #   ]
-    #   cursor.execute(sql, values)
-    #   self.db.commit()
-    #   return orders
+    def updateById(self, orders):
+        cursor = self.db.cursor()
+        sql = "update orders set ORDER_NUMBER = %s, CUSTOMER_NUMBER = %s, PART = %s, CURR_CODE = %s, OPEN_QTY = %s, UNIT_PRICE_USD = %s,USD_EUR_FXRATE = %s where ID = %s"
+        values = [
+            orders['ORDER_NUMBER'],
+            orders['CUSTOMER_NUMBER'],
+            orders['PART'],
+            orders['CURR_CODE'],
+            orders['OPEN_QTY'],
+            orders['UNIT_PRICE_USD'],
+            orders['USD_EUR_FXRATE'],      
+            orders['ID']         
+        ]
+        cursor.execute(sql, values)
+        self.db.commit()
+        return orders
 
     def update(self, orders):
        cursor = self.db.cursor()
