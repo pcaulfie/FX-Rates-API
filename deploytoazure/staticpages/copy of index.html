@@ -1,0 +1,297 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div id="create-update" style="display:none">
+            <h2>create-edit</h2>
+            <table id="createUpdateForm">
+                <tr> <!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+                    <td>ID</td>
+                    <td><input type="text" name="ID" id="idInput"></td>
+                </tr>
+                <tr> <!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+                    <td>ORDER_NUMBER</td>
+                    <td><input type="text" name="ORDER_NUMBER"></td>
+                </tr>
+                <tr>
+                    <td>CUSTOMER_NUMBER</td>
+                    <td><input type="number" name="CUSTOMER_NUMBER"></td>
+                </tr>
+                <tr>
+                    <td>PART</td>
+                    <td><input type="text" name="PART"></td>
+                </tr>
+                <tr>    
+                    <td>CURR_CODE</td>
+                    <td><input type="text" name="CURR_CODE"></td>
+                </tr>
+                <tr>
+                    <td>OPEN_QTY</td>
+                    <td><input type="number" name="OPEN_QTY"></td>
+                </tr>
+                <tr>
+                    <td>UNIT_PRICE_USD</td>
+                    <td><input type="currency" name="UNIT_PRICE_USD"></td>
+                </tr>
+                <tr>    
+                    <td>USD_EUR_FXRATE</td>
+                    <td><input type="currency" name="USD_EUR_FXRATE"></td>
+                </tr>
+                <tr>
+                    <td></td><td>
+                        <button id="create-button" onclick="doCreate()">Create</button>     
+                        <button id="update-button" onclick="doUpdate()">update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="display">
+            <h2>Open Orders Management System</h2>
+            <button onClick="showCreate()">Create</button>
+            <table id="orderTable" class="table">
+                <tr>
+                    <th>ID</th><th>ORDER_NUMBER</th><th>CUSTOMER_NUMBER</th><th>PART</th><th>CURR_CODE</th><th>OPEN_QTY</th><th>UNIT_PRICE_USD</th><th>USD_EUR_FXRATE</th><th></th><th></th>
+                </tr>
+                
+            </table>
+
+        </div>
+
+    </body>
+
+    <script>
+        // Hide div id="create-update" 
+        function showCreate(){
+            document.getElementById('display').style.display = "none"
+            document.getElementById('update-button').style.display = "none"
+            document.getElementById('create-button').style.display = "block"
+            document.getElementById('create-update').style.display = "block"
+        }
+
+        function showUpdate(thisElem){
+            var rowElement = thisElem.parentNode.parentNode;
+            order = readOrderFromRow(rowElement)
+            populateForm(order)
+
+            document.getElementById('display').style.display = "none"
+            document.getElementById('update-button').style.display = "block"
+            document.getElementById('create-button').style.display = "none"
+            document.getElementById('create-update').style.display = "block"
+        }
+
+        function readOrderFromRow(rowElement){
+            order = {}
+            order.ID = rowElement.getAttribute("ID");
+            order.ORDER_NUMBER = rowElement.cells[1].firstChild.textContent
+            order.CUSTOMER_NUMBER = rowElement.cells[2].firstChild.textContent
+            order.PART = rowElement.cells[3].firstChild.textContent
+            order.CURR_CODE = rowElement.cells[4].firstChild.textContent
+            order.OPEN_QTY = rowElement.cells[5].firstChild.textContent
+            order.UNIT_PRICE_USD = rowElement.cells[6].firstChild.textContent
+            order.USD_EUR_FXRATE = rowElement.cells[7].firstChild.textContent
+            //<!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+            return order
+                
+        }
+
+        function populateForm(order){
+            var form = document.getElementById('createUpdateForm')
+
+                
+            form.querySelector('input[name="ID"]').value = order.ID
+            form.querySelector('input[name="ID"]').disabled=true
+                
+            form.querySelector('input[name="ORDER_NUMBER"]').value = order.ORDER_NUMBER
+            form.querySelector('input[name="CUSTOMER_NUMBER"]').value = order.CUSTOMER_NUMBER
+            form.querySelector('input[name="PART"]').value = order.PART
+            form.querySelector('input[name="CURR_CODE"]').value = order.CURR_CODE
+            form.querySelector('input[name="OPEN_QTY"]').value = order.OPEN_QTY
+            form.querySelector('input[name="UNIT_PRICE_USD"]').value = order.UNIT_PRICE_USD 
+            form.querySelector('input[name="USD_EUR_FXRATE"]').value = order.USD_EUR_FXRATE      
+        }
+
+        // Show div id="create-update" 
+        function showDisplay() {
+                document.getElementById('display').style.display = "block"
+                document.getElementById('create-update').style.display = "none"
+        }
+
+        function doCreate(){
+            console.log("in doCreate")
+            order= getOrderFromForm()
+            console.log(order)
+            $.ajax({
+                url:"http://127.0.0.1:5000/orders",
+                data:JSON.stringify(order),
+                method:"POST",
+                dataType:"JSON",
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    console.log(result) 
+                    addOrderToTable(order)
+                    showDisplay()
+                    clearForm()
+
+                },
+                error:function(xhr,status,error){
+                        console.log("error"+error)
+                }
+            })
+               
+        }
+
+        function doUpdate(){
+            order = getOrderFromForm()
+            updateServer(order)
+            //clearForm()
+            //showDisplay()
+
+        }
+        
+        function updateServer(order){
+            //var tableElement = document.getElementById('createUpdateForm');
+            //var rowElement = order.parentNode.parentNode;
+            //var index = rowElement.rowIndex;
+            //ID = rowElement.getAttribute("ID");
+            $.ajax({
+                url: "http://127.0.0.1:5000/orders/"+order.ID, //+encodeURI(order.ID)
+                data: JSON.stringify(order),
+                method: "PUT",
+                dataType: "JSON",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    console.log(result)
+                    updateTableRow(order)
+                    showDisplay()
+                    clearForm()
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("error" + error)
+                }
+            })
+        }
+
+        function doDelete(thisElem){
+            var tableElement = document.getElementById('orderTable');
+            var rowElement = thisElem.parentNode.parentNode;
+            var index = rowElement.rowIndex;
+            //ID = rowElement.getAttribute("ID");
+            order.ID = rowElement.getAttribute("ID")
+            $.ajax({
+                url:"http://127.0.0.1:5000/orders/"+order.ID,
+                method:"DELETE",
+                data:"",
+                dateType:"JSON",
+                contentType: "application/json; charset=utf-8",
+                success:function(result){
+                    console.log(result)
+                    tableElement.deleteRow(index);
+                },
+                error:function(xhr,status,error){
+                    console.log(error)
+                }
+            })
+                
+        }
+
+        function clearForm() {
+            var form = document.getElementById('createUpdateForm')
+
+
+            form.querySelector('input[name="ID"]').value = ''
+            form.querySelector('input[name="ID"]').disabled = false
+
+            form.querySelector('input[name="ORDER_NUMBER"]').value = ''
+            form.querySelector('input[name="CUSTOMER_NUMBER"]').value = ''
+            form.querySelector('input[name="PART"]').value = ''
+            form.querySelector('input[name="CURR_CODE"]').value = ''
+            form.querySelector('input[name="OPEN_QTY"]').value = ''
+            form.querySelector('input[name="UNIT_PRICE_USD"]').value = ''
+            form.querySelector('input[name="USD_EUR_FXRATE"]').value = ''
+        }
+
+        function updateTableRow(order){
+            
+            rowElement = document.getElementById(order.ID)
+            rowElement.cells[1].firstChild.textContent = order.ORDER_NUMBER
+            rowElement.cells[2].firstChild.textContent = order.CUSTOMER_NUMBER
+            rowElement.cells[3].firstChild.textContent = order.PART
+            rowElement.cells[4].firstChild.textContent = order.CURR_CODE
+            rowElement.cells[5].firstChild.textContent = order.OPEN_QTY
+            rowElement.cells[6].firstChild.textContent = order.UNIT_PRICE_USD
+            rowElement.cells[7].firstChild.textContent = order.USD_EUR_FXRATE
+                //console.log("updating table")
+        }
+
+        function getOrderFromForm(){
+            var form = document.getElementById('createUpdateForm')
+            //<!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+            var order = {}
+            order.ID = form.querySelector('input[name="ID"]').value
+            order.ORDER_NUMBER = form.querySelector('input[name="ORDER_NUMBER"]').value
+            order.CUSTOMER_NUMBER = form.querySelector('input[name="CUSTOMER_NUMBER"]').value
+            order.PART = form.querySelector('input[name="PART"]').value
+            order.CURR_CODE = form.querySelector('input[name="CURR_CODE"]').value
+            order.OPEN_QTY = form.querySelector('input[name="OPEN_QTY"]').value
+            order.UNIT_PRICE_USD = form.querySelector('input[name="UNIT_PRICE_USD"]').value
+            order.USD_EUR_FXRATE = form.querySelector('input[name="USD_EUR_FXRATE"]').value
+            //console.log(order)
+            return order
+        }
+
+        function populateTable(){
+            //ajax getAll
+            $.ajax({
+                url:'http://127.0.0.1:5000/orders',
+                method:'GET',
+                datatype:'JSON',
+                success:function(results){
+                    for (order of results){
+                        addOrderToTable(order)
+                    }
+                },
+                error:function (xhr,status,error){
+                    console.log ("error "+error +" code:"+status)
+                }
+
+            })
+               
+        }
+        //<!-- ID','ORDER_NUMBER','CUSTOMER_NUMBER','PART','CURR_CODE','OPEN_QTY','UNIT_PRICE_USD','USD_EUR_FXRATE' -->
+        function addOrderToTable(order){
+            //console.log("working so far")
+            tableElem = document.getElementById("orderTable")
+            rowElem = tableElem.insertRow(-1)
+            rowElem.setAttribute("ID", order.ID)
+            cell1 = rowElem.insertCell(0)
+            cell1.innerHTML = order.ID
+            cell2 = rowElem.insertCell(1)
+            cell2.innerHTML = order.ORDER_NUMBER
+            cell3 = rowElem.insertCell(2)
+            cell3.innerHTML = order.CUSTOMER_NUMBER
+            cell4 = rowElem.insertCell(3)
+            cell4.innerHTML = order.PART
+            cell5 = rowElem.insertCell(4)
+            cell5.innerHTML = order.CURR_CODE
+            cell6 = rowElem.insertCell(5)
+            cell6.innerHTML = order.OPEN_QTY
+            cell7 = rowElem.insertCell(6)
+            cell7.innerHTML = order.UNIT_PRICE_USD
+            cell8 = rowElem.insertCell(7)
+            cell8.innerHTML = order.USD_EUR_FXRATE
+            cell9 = rowElem.insertCell(8)
+            cell9.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell10 = rowElem.insertCell(9)
+            cell10.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+            }
+            
+        populateTable();   
+    
+    </script>
+</html>
