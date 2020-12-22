@@ -125,8 +125,10 @@
             console.log("in doCreate")
             order= getOrderFromForm()
             console.log(order)
+            host= window.location.origin
             $.ajax({
-                url:"http://127.0.0.1:5000/orders",
+                //url:"http://127.0.0.1:5000/orders",
+                url:host+"/orders",
                 data:JSON.stringify(order),
                 method:"POST",
                 dataType:"JSON",
@@ -159,8 +161,10 @@
             //var rowElement = order.parentNode.parentNode;
             //var index = rowElement.rowIndex;
             //ID = rowElement.getAttribute("ID");
+            host= window.location.origin
             $.ajax({
-                url: "http://127.0.0.1:5000/orders/"+order.ID, //+encodeURI(order.ID)
+                //url: "http://127.0.0.1:5000/orders/"+order.ID, //+encodeURI(order.ID)
+                url:host+"/orders/"+order.ID,
                 data: JSON.stringify(order),
                 method: "PUT",
                 dataType: "JSON",
@@ -184,8 +188,10 @@
             var index = rowElement.rowIndex;
             //ID = rowElement.getAttribute("ID");
             order.ID = rowElement.getAttribute("ID")
+            host= window.location.origin
             $.ajax({
-                url:"http://127.0.0.1:5000/orders/"+order.ID,
+                //url:"http://127.0.0.1:5000/orders/"+order.ID,
+                url:host+"/orders/"+order.ID,
                 method:"DELETE",
                 data:"",
                 dateType:"JSON",
@@ -248,8 +254,10 @@
 
         function populateTable(){
             //ajax getAll
+            host= window.location.origin
             $.ajax({
-                url:'http://127.0.0.1:5000/orders',
+                //url:'http://127.0.0.1:5000/orders',
+                url:host+"/orders",
                 method:'GET',
                 datatype:'JSON',
                 success:function(results){
