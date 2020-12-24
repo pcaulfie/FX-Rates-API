@@ -45,7 +45,8 @@
                 <tr>
                     <td></td><td>
                         <button id="create-button" onclick="doCreate()">Create</button>     
-                        <button id="update-button" onclick="doUpdate()">update</button>
+                        <button id="update-button" onclick="doUpdate()">Update</button>
+                        <button id="back-button" onclick="goBack()">Back</button>
                     </td>
                 </tr>
             </table>
@@ -69,8 +70,14 @@
         function showCreate(){
             document.getElementById('display').style.display = "none"
             document.getElementById('update-button').style.display = "none"
+            document.getElementById('back-button').style.display = "block"
             document.getElementById('create-button').style.display = "block"
             document.getElementById('create-update').style.display = "block"
+        }
+
+        function goBack(){
+            document.getElementById('display').style.display = "block"
+            document.getElementById('create-update').style.display = "none"
         }
 
         function showUpdate(thisElem){
@@ -125,8 +132,10 @@
             console.log("in doCreate")
             order= getOrderFromForm()
             console.log(order)
+            host= window.location.origin
             $.ajax({
-                url:"http://127.0.0.1:5000/orders",
+                //url:"http://127.0.0.1:5000/orders",
+                url:host+"/orders",
                 data:JSON.stringify(order),
                 method:"POST",
                 dataType:"JSON",
@@ -134,6 +143,7 @@
                 success:function(result){
                     console.log(result) 
                     addOrderToTable(order)
+                    //updateTableRow(order)
                     showDisplay()
                     clearForm()
 
@@ -158,8 +168,10 @@
             //var rowElement = order.parentNode.parentNode;
             //var index = rowElement.rowIndex;
             //ID = rowElement.getAttribute("ID");
+            host= window.location.origin
             $.ajax({
-                url: "http://127.0.0.1:5000/orders/"+order.ID, //+encodeURI(order.ID)
+                //url: "http://127.0.0.1:5000/orders/"+order.ID, //+encodeURI(order.ID)
+                url:host+"/orders/"+order.ID,
                 data: JSON.stringify(order),
                 method: "PUT",
                 dataType: "JSON",
@@ -183,8 +195,10 @@
             var index = rowElement.rowIndex;
             //ID = rowElement.getAttribute("ID");
             order.ID = rowElement.getAttribute("ID")
+            host= window.location.origin
             $.ajax({
-                url:"http://127.0.0.1:5000/orders/"+order.ID,
+                //url:"http://127.0.0.1:5000/orders/"+order.ID,
+                url:host+"/orders/"+order.ID,
                 method:"DELETE",
                 data:"",
                 dateType:"JSON",
@@ -247,8 +261,10 @@
 
         function populateTable(){
             //ajax getAll
+            host= window.location.origin
             $.ajax({
-                url:'http://127.0.0.1:5000/orders',
+                //url:'http://127.0.0.1:5000/orders',
+                url:host+"/orders",
                 method:'GET',
                 datatype:'JSON',
                 success:function(results){
