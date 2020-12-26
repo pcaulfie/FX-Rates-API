@@ -1,3 +1,5 @@
+CREATE DATABASE open_orders;
+
 use open_orders;
 
 create table customer(

@@ -1,23 +1,73 @@
-from flask import Flask, url_for, request, redirect, abort, jsonify
+from flask import Flask, url_for, request, redirect, abort, jsonify, session, render_template
 from OrdersDao import ordersDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
-
+app.secret_key = 'someSecrtetasdrgsadfgsdfg3ko'
+site = 'http://127.0.0.1:5000/index.html'
 
 @app.route('/')
 def index():
-    return "hello"
+    count=0
+    count+=1
+
+    if not 'counter' in session:
+        session['counter'] =0
+        print("new session")
+
+    sessionCount=session['counter']
+    sessionCount+=1
+    session['counter']=sessionCount
+
+    if not 'username' in session:
+        return '<h1> Open Orders Management System - Login Page</h1> '+\
+        '<button>'+\
+            '<a href="'+url_for('login')+'">' +\
+                'login' +\
+            '</a>' +\
+        '</button>'
+    
+    return 'welcome ' + session['username'] +\
+        '<br><a href="'+url_for('logout')+'">logout</a>'
+    
+
+# Route for handling the login page logic
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            session['username'] = request.form['username']
+            return redirect(site)
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('index'))
+
+@app.route('/clear')
+def clear():
+    #session.clear()
+    session.pop('counter',None)   
+
+    return "done" 
 
 #get all
 
 @app.route('/orders')
 def getAll():
+    if not 'username' in session:
+        abort(401)
     return jsonify(ordersDao.getAll())
 
 #find by ID
 
 @app.route('/orders/<int:ID>')
 def findById(ID):
+    if not 'username' in session:
+        return redirect('login')
     return jsonify(ordersDao.findById(ID))
 
 # create
@@ -46,7 +96,9 @@ def create():
 # curl -X PUT -d "{\"USD_EUR_FXRATE\":1.33333}" -H Content-Type:application/json http://127.0.0.1:5000/orders
 
 @app.route('/orders', methods=['PUT'])
-def update(): 
+def update():
+    if not 'username' in session:
+        return redirect('login') 
     rates = {
         "USD_EUR_FXRATE": request.json["USD_EUR_FXRATE"]
     }
@@ -88,6 +140,8 @@ def updateById(ID):
 
 @app.route('/orders/<int:ID>', methods=['DELETE'])
 def delete(ID):
+    if not 'username' in session:
+        return redirect('login')
     ordersDao.delete(ID)
 
     return jsonify({"done":True})

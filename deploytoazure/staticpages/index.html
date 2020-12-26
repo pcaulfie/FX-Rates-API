@@ -96,14 +96,16 @@
         }
 
         function updateFXRates(){
-            var rates = document.getElementById('output1').innerHTML;
+            // make rates = content of output1 (latest fxrates) 
+            var rates = document.getElementById('output1').innerHTML; // adapted from https://www.w3schools.com/js/js_htmldom_html.asp
+            // make params = object {} containing  database field(USD_EUR_FXRATE) & rates
             var params = {'USD_EUR_FXRATE':rates};
-            console.log(params);
+            console.log(params); // test object
             host= window.location.origin
             $.ajax({
                 //url:"http://127.0.0.1:5000/orders",
                 url:host+"/orders",
-                data:JSON.stringify(params),
+                data:JSON.stringify(params), // pass object to sql
                 method:"PUT",
                 dataType:"JSON",
                 contentType: "application/json; charset=utf-8",
