@@ -16,6 +16,13 @@ The objective of this project is to create a web application to report open orde
 This repository contains my submission for the Tasks assessment for Machine Learning and Statistics in 2020.
 
 The repository contains the following:
+## Contents
+
+
+| Part |      Title                | Description |Link|
+|------|---------------------------|---------|------|
+| 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |https://github.com/pcaulfie/FX-Rates-API/blob/main/server.py|
+| 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/index.html|
 
 *Main Web App - Local Host*
 1. server.py - A basic Flask server that has a REST API, (to perform CRUD operations) 
