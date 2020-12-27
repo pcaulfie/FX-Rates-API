@@ -10,7 +10,13 @@ An assignment submitted in part fulfilment of the requirements of the Higher Dip
   * Submitted: 29th December 2020
 
 ## Project Overview
-The objective of this project is to create a web application to report open orders, stored in a MYSQL database. The open order values are stored in base currency which is US Dollar (USD). The web application needs to be able to report in both USD and euro (EUR). The application cantains a link to a third party API which can provide the latest USDEUR exchange rate. The third party API is integrated into the app, to allow the database to be updated with the latest exchange rate and this in turn will be used to refresh reports published on the web app.
+The objective of this project is as follows:
+1. Create a web application to perform CRUD operations on two database tables 'Orders' and 'Customers'. 
+1. Normalise databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesnt exist in customer table.
+1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. 
+
+![Image of currency](staticpages/currency.jpg)
+
 
 ## Introduction
 This repository contains my submission for the Tasks assessment for Machine Learning and Statistics in 2020.
@@ -21,8 +27,8 @@ The repository contains the following:
 
 | Part |      Title                | Description |Link|
 |------|---------------------------|---------|------|
-| 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |https://github.com/pcaulfie/FX-Rates-API/blob/main/server.py|
-| 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/index.html|
+| 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |server.py|
+| 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations |staticpages/index.html|
 
 *Main Web App - Local Host*
 1. server.py - A basic Flask server that has a REST API, (to perform CRUD operations) 
