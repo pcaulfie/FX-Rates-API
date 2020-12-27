@@ -47,7 +47,7 @@ The objective of this project is as follows:
 | 3    | exchangeratesapi.py  | A python program to extract latest exchange rates in JSON |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/exchangeratesapi.py|
 | 4   | latestRates.json  | A JSON file containing the output of exchangeratesapi.py  |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/latestRates.json|
 
-### How to Clone This Repository
+### How to Clone This Repository [4]
 | Step |      Task                | Instructions |
 |------|---------------------------|---------|
 | 1    | Install Anaconda distribution of python which contains all the libraries used| [Anaconda](https://www.anaconda.com/distribution/)|
