@@ -12,10 +12,9 @@ An assignment submitted in part fulfilment of the requirements of the Higher Dip
 ## Project Overview
 The objective of this project is as follows:
 1. Create a web application to perform CRUD operations on two database tables 'Orders' and 'Customers'. 
-* Local Host instance, requires user to login: username = admin & password = admin 
-1. Normalise databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesnt exist in customer table.
-1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. 
-1. Lite version of web application hosted on Pythonanywhere, enables CRUD operations on one database table 'Orders'. 
+1. Normalise databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesn’t  exist in customer table.
+1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. The 3rd Party API I have decided to use is called [exchangeratesapi](https://exchangeratesapi.io/) which provides current and historical foreign exchange rates published by the European Central Bank. 
+1. Host the web application online. I have hosted a lite version of web application hosted on Pythonanywhere, enabling CRUD operations on one database table 'Orders'. Due to time constraints, I did not have time to test customer.html on pythonanywhere. I also did not implement login.html page as I encountered some errors and did not have time to troubleshoot them. 
 
 ![Image of currency](staticpages/currency.jpg)
 
@@ -49,19 +48,13 @@ The objective of this project is as follows:
 | 4   | latestRates.json  | A JSON file containing the output of exchangeratesapi.py  |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/latestRates.json|
 
 ### How to Clone This Repository
-
-1. Launch Cmder
+1. Install the [Anaconda](https://www.anaconda.com/distribution/) distribution of python which contains all the libraries used
+1. Launch Cmder or other similar console.
 1. Using cmder prompt, create a folder where you want to clone the repository - for example *cd folder/to/clone-into/*
 1. Specify URL of the repository you want to clone using the following command: 
  * *git clone https://github.com/pcaulfie/FX-Rates-API*
  * This will download the project to a folder named after the Git repository ("FX-Rates-API" in this case). 
  * If you want a different folder name, simply specify it as the last parameter: *git clone https://github.com/pcaulfie/FX-Rates-API other-name*
-
-## Installation
-
-- I recommend that you install the [Anaconda](https://www.anaconda.com/distribution/) distribution of python which contains all the libraries used, as well as an instance of Jupyter notebook.
- 
-
 
 ### Setting Up A Virtual Environment on Local Machine [1]
 | Step |      Task                | Windows |Mac / Linux|
@@ -87,15 +80,20 @@ protobuf==3.14.0
 six==1.15.0
 Werkzeug==1.0.1
 
-### Set Up Flask Server 
+### Set Up Flask Server [2]
 | Step |      Task                | Windows |Mac / Linux|
 |------|---------------------------|---------|------|
 | 1    | change directory to venv  |  | |
 | 2    | set environmental variables  | SET FLASK_APP=server|export FLASK_APP=server |
 | 3    | set DEBUG MODE   | export FLASK_ENV=development |export FLASK_DEBUG=1 |
 | 4    | run flask server   | flask run |flask run |
-| 4    | run flask server   | flask run |flask run |
+| 5    | open web app on local host   | http://127.0.0.1:5000/ |http://127.0.0.1:5000/ |
+| 6    | login   | username = admin & password = admin  |username = admin & password = admin  |
 
+### Running Web App on Pythonanywhere
+| Step |      Task                | Windows |Mac / Linux|
+|------|---------------------------|---------|------|
+| 1    | open web app on host  |http://paulcaulfield.pythonanywhere.com/index.html  | |
 
 ## License
 
@@ -107,6 +105,9 @@ Werkzeug==1.0.1
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://web.microsoftstream.com/video/bc3af8e1-2709-4caa-9af2-dd9510919a37?list=studio
 [2] Beatty, A., “DR8.2 Flask clean ,”
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://web.microsoftstream.com/video/a7d9ea86-c2f4-4104-888a-569b4a391808?list=studio
+[3] Vain, M., “Foreign exchange rates API with currency conversion ,”
+2020, [Online; accessed 27-December-2020]. [Online]. Available: https://exchangeratesapi.io/
+
 
 ## Contact
 
