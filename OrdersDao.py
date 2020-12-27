@@ -79,13 +79,13 @@ class OrdersDao:
 
     def convertToDict2(self, result):
         colnames = ['ID','CUSTOMER_NAME','ZONE']
-        customer = {}
+        cust = {}
 
         if result:
             for i , colName in enumerate(colnames):
                 value = result[i]
-                customer[colName] = value
-        return customer    
+                cust[colName] = value
+        return cust    
 
     def findById(self, ID):
         cursor = self.db.cursor()
@@ -122,10 +122,11 @@ class OrdersDao:
 
     def updateCustId(self, customer):
         cursor = self.db.cursor()
-        sql = "update customer set CUSTOMER_NAME = %s, ZONE = %s"
+        sql = "update customer set CUSTOMER_NAME = %s, ZONE = %s where ID = %s"
         values = [
             customer['CUSTOMER_NAME'],
-            customer['ZONE']                  
+            customer['ZONE'],
+            customer['ID']                  
         ]
         cursor.execute(sql, values)
         self.db.commit()

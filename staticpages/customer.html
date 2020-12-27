@@ -32,6 +32,10 @@
             </table>
         </div>
         <div id="display">
+            <center> <!-- center Banner -->
+                <!-- insert banner image -->
+                <img src="Group.jpg" alt="" width="100%" height="30%"title="Banner" hspace="0" >
+            </center>
             <h2>CUSTOMER LIST</h2>
             <button onClick="showCreate()">Create</button> 
             <button onclick="parent.location='//127.0.0.1:5000/index.html'" id="myButton2">Open Orders</button>
@@ -74,11 +78,11 @@
         }
 
         function readCustomerFromRow(rowElement){
-            customer = {}
-            customer.ID = rowElement.getAttribute("ID");
-            customer.CUSTOMER_NAME = rowElement.cells[1].firstChild.textContent
-            customer.ZONE = rowElement.cells[2].firstChild.textContent
-            return customer
+            cust = {}
+            cust.ID = rowElement.getAttribute("ID");
+            cust.CUSTOMER_NAME = rowElement.cells[1].firstChild.textContent
+            cust.ZONE = rowElement.cells[2].firstChild.textContent
+            return cust
                 
         }
 
@@ -86,11 +90,11 @@
             var form = document.getElementById('createUpdateForm')
 
                 
-            form.querySelector('input[name="ID"]').value = customer.ID
+            form.querySelector('input[name="ID"]').value = cust.ID
             form.querySelector('input[name="ID"]').disabled=true
                 
-            form.querySelector('input[name="CUSTOMER_NAME"]').value = customer.CUSTOMER_NAME
-            form.querySelector('input[name="ZONE"]').value = customer.ZONE              
+            form.querySelector('input[name="CUSTOMER_NAME"]').value = cust.CUSTOMER_NAME
+            form.querySelector('input[name="ZONE"]').value = cust.ZONE              
         }
 
         // Show div id="create-update" 
@@ -132,17 +136,17 @@
 
         }
         
-        function updateServer(customer){
+        function updateServer(cust){
             host= window.location.origin
             $.ajax({                
-                url:host+"/customer/"+customer.ID,
-                data: JSON.stringify(customer),
+                url:host+"/customer/"+cust.ID,
+                data: JSON.stringify(cust),
                 method: "PUT",
                 dataType: "JSON",
                 contentType: "application/json; charset=utf-8",
                 success: function (result) {
                     console.log(result)
-                    updateTableRow(customer)
+                    updateTableRow(cust)
                     showDisplay()
                     clearForm()
 
@@ -188,20 +192,20 @@
             form.querySelector('input[name="ZONE"]').value = ''            
         }
 
-        function updateTableRow(customer){
+        function updateTableRow(cust){
             
-            rowElement = document.getElementById(customer.ID)
-            rowElement.cells[1].firstChild.textContent = customer.CUSTOMER_NAME
-            rowElement.cells[2].firstChild.textContent = customer.ZONE            
+            rowElement = document.getElementById(cust.ID)
+            rowElement.cells[1].firstChild.textContent = cust.CUSTOMER_NAME
+            rowElement.cells[2].firstChild.textContent = cust.ZONE            
         }
 
         function getCustomerFromForm(){
             var form = document.getElementById('createUpdateForm')            
-            var customer = {}
-            customer.ID = form.querySelector('input[name="ID"]').value
-            customer.CUSTOMER_NAME = form.querySelector('input[name="CUSTOMER_NAME"]').value
-            customer.ZONE  = form.querySelector('input[name="ZONE"]').value            
-            return customer
+            var cust = {}
+            cust.ID = form.querySelector('input[name="ID"]').value
+            cust.CUSTOMER_NAME = form.querySelector('input[name="CUSTOMER_NAME"]').value
+            cust.ZONE  = form.querySelector('input[name="ZONE"]').value            
+            return cust
         }
 
         function populateTable(){
@@ -224,17 +228,17 @@
                
         }
         
-        function addCustomerToTable(customer){
+        function addCustomerToTable(cust){
             //console.log("working so far")
             tableElem = document.getElementById("custTable")
             rowElem = tableElem.insertRow(-1)
-            rowElem.setAttribute("ID", customer.ID)
+            rowElem.setAttribute("ID", cust.ID)
             cell1 = rowElem.insertCell(0)
-            cell1.innerHTML = customer.ID
+            cell1.innerHTML = cust.ID
             cell2 = rowElem.insertCell(1)
-            cell2.innerHTML = customer.CUSTOMER_NAME
+            cell2.innerHTML = cust.CUSTOMER_NAME
             cell3 = rowElem.insertCell(2)
-            cell3.innerHTML = customer.ZONE
+            cell3.innerHTML = cust.ZONE
             cell4 = rowElem.insertCell(3)
             cell4.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
             cell5 = rowElem.insertCell(4)
