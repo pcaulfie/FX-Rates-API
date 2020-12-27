@@ -1,9 +1,8 @@
 import mysql.connector
-from mysql.connector import cursor
 import dbconfig as cfg
 
 class OrdersDao:
-    db = ""
+    
     def initConnectToDB(self):
         db = mysql.connector.connect(
             host=       cfg.mysql['host'],
