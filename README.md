@@ -17,38 +17,35 @@ The objective of this project is as follows:
 
 ![Image of currency](staticpages/currency.jpg)
 
+## Contents 
 
-## Introduction
-This repository contains my submission for the Tasks assessment for Machine Learning and Statistics in 2020.
-
-The repository contains the following:
-## Contents
-
-
-| Part |      Title                | Description |Link|
+*Main Web App - Local Host*
+| File |      Title                | Description |Link|
 |------|---------------------------|---------|------|
 | 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |https://github.com/pcaulfie/FX-Rates-API/blob/main/server.py|
 | 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations on orders table |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/index.html|
 | 3    | customer.html | A web interface, using AJAX calls, to perform CRUD operations on orders table |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/customer.html|
-| 1    | initdb.sql | A file containing the mysql commands used to create two tables in a mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/initdb.sql|
-| 1    | dbconfigtemplate | A file containing the configuration details needed to connect to the mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/dbconfigtemplate.py|
-| 1    | OrdersDao.py | A data access object (DAO) that provides an interface to the MYSQL database |https://github.com/pcaulfie/FX-Rates-API/blob/main/OrdersDao.py|
-| 1    | TestOrdersDao.py | A file used to test the OrdersDao is working correctly before implementing it on a Flask server. |https://github.com/pcaulfie/FX-Rates-API/blob/main/TestOrdersDao.py|
-| 1    | Requirements.txt | A file listing all packages needed to run the application |https://github.com/pcaulfie/FX-Rates-API/blob/main/requirements.txt|
-| 1    |.gitignore | A file used to tell git which files are not needed to be added to the repository. |https://github.com/pcaulfie/FX-Rates-API/blob/main/.gitignore|
+| 4    | initdb.sql | A file containing the mysql commands used to create two tables in a mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/initdb.sql|
+| 5   | dbconfigtemplate | A file containing the configuration details needed to connect to the mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/dbconfigtemplate.py|
+| 6    | OrdersDao.py | A data access object (DAO) that provides an interface to the MYSQL database |https://github.com/pcaulfie/FX-Rates-API/blob/main/OrdersDao.py|
+| 7    | TestOrdersDao.py | A file used to test the OrdersDao is working correctly before implementing it on a Flask server. |https://github.com/pcaulfie/FX-Rates-API/blob/main/TestOrdersDao.py|
+| 8    | Requirements.txt | A file listing all packages needed to run the application |https://github.com/pcaulfie/FX-Rates-API/blob/main/requirements.txt|
+| 9    |.gitignore | A file used to tell git which files are not needed to be added to the repository. |https://github.com/pcaulfie/FX-Rates-API/blob/main/.gitignore|
 
-*Main Web App - Local Host*
-
-1. Gitignore file
-1. Licence
-1. Readme
-
-*Web App - Online Host*
-1. Folder called deploytoazure which contains the files which will uploaded to Pythonanywhere
-1. Internet shortcut to app hosted online on Pythonanywhere - http://paulcaulfield.pythonanywhere.com/index.html
-
+*Web App - Hosted Online*
+| File |      Title                | Description |Link|
+|------|---------------------------|---------|------|
+| 1    | deploytoazure | Folder containing the files have been uploaded to Pythonanywhere|https://github.com/pcaulfie/FX-Rates-API/tree/main/deploytoazure|
+| 2    | Internet shortcut  | Link to app hosted online on Pythonanywhere to app hosted online on Pythonanywhere |http://paulcaulfield.pythonanywhere.com/index.html|
 
 * 3rd Party API Working Files*
+| File |      Title                | Description |Link|
+|------|---------------------------|---------|------|
+| 1    | deploytoazure | Folder containing the files have been uploaded to Pythonanywhere|https://github.com/pcaulfie/FX-Rates-API/tree/main/3rd%20Party%20API|
+| 2    | getJSONfromAPI.html  | A test file used to test web interface, using AJAX calls, to extract FX Rates from 3rd party API |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/getJSONfromAPI.html|
+| 2    | getJSONfromAPI.html  | A web interface, using AJAX calls, to extract FX Rates from 3rd party API |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/getJSONfromAPI.html|
+
+
 1. 3rd Party API folder containing python programs used to investigate 2 3rd party API's and JSON output.
 1. API file xxxxx
 
