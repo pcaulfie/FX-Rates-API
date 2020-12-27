@@ -79,9 +79,8 @@ class OrdersDao:
         values = [ID]
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        order=self.convertToDictionary(result)
         cursor.close()
-        return order
+        return self.convertToDict(result)
 
     def updateById(self, orders):
         cursor = self.getCursor()
