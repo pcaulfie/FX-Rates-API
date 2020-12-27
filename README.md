@@ -1,4 +1,4 @@
-# Project 2020 
+# Project 2020 - Open Orders Management System
 ## Course: Data Representation
 
 * Student Name: Paul Caulfield
@@ -9,11 +9,11 @@
 An assignment submitted in part fulfilment of the requirements of the Higher Diploma in Science - Data Analytics: 2020-2021, Galway Mayo Institute of Technology.
   * Submitted: 29th December 2020
 
-## Project Overview
+## Project Overview - Open Orders Management System
 The objective of this project is as follows:
-1. Create a web application to perform CRUD operations on two database tables 'Orders' and 'Customers'. 
-1. Normalise databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesn’t  exist in customer table.
-1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. The 3rd Party API I have decided to use is called [exchangeratesapi](https://exchangeratesapi.io/) which provides current and historical foreign exchange rates published by the European Central Bank. 
+1. Create a web application called Open Orders Management System to perform CRUD operations on two database tables 'Orders' and 'Customers'. 
+1. Normalise the two databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesn’t  exist in customer table. I added a foreign key constraint as follows:  FOREIGN KEY (CUSTOMER_NUMBER) REFERENCES CUSTOMER(ID)  ON UPDATE CASCADE ON DELETE RESTRICT
+1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. The 3rd Party API I am using is [exchangeratesapi](https://exchangeratesapi.io/) which provides current and historical foreign exchange rates published by the European Central Bank[3]. 
 1. Host the web application online. I have hosted a lite version of web application hosted on Pythonanywhere, enabling CRUD operations on one database table 'Orders'. Due to time constraints, I did not have time to test customer.html on pythonanywhere. I also did not implement login.html page as I encountered some errors and did not have time to troubleshoot them. 
 
 ![Image of currency](staticpages/currency.jpg)
@@ -48,13 +48,12 @@ The objective of this project is as follows:
 | 4   | latestRates.json  | A JSON file containing the output of exchangeratesapi.py  |https://github.com/pcaulfie/FX-Rates-API/blob/main/3rd%20Party%20API/latestRates.json|
 
 ### How to Clone This Repository
-1. Install the [Anaconda](https://www.anaconda.com/distribution/) distribution of python which contains all the libraries used
-1. Launch Cmder or other similar console.
-1. Using cmder prompt, create a folder where you want to clone the repository - for example *cd folder/to/clone-into/*
-1. Specify URL of the repository you want to clone using the following command: 
- * *git clone https://github.com/pcaulfie/FX-Rates-API*
- * This will download the project to a folder named after the Git repository ("FX-Rates-API" in this case). 
- * If you want a different folder name, simply specify it as the last parameter: *git clone https://github.com/pcaulfie/FX-Rates-API other-name*
+| Step |      Task                | Instructions |
+|------|---------------------------|---------|
+| 1    | Install Anaconda distribution of python which contains all the libraries used| [Anaconda](https://www.anaconda.com/distribution/)|
+| 2    | Launch Cmder or other similar console| cmder|
+| 3    | create a folder where you want to clone the repository| for example *cd folder/to/clone-into/*|
+| 4    | Specify URL of the repository you want to clone| *git clone https://github.com/pcaulfie/FX-Rates-API*|
 
 ### Setting Up A Virtual Environment on Local Machine [1]
 | Step |      Task                | Windows |Mac / Linux|
@@ -70,15 +69,7 @@ The objective of this project is as follows:
 ### Requirements.txt
 Here is a list of the packages needed to run this application. If mysql-connector-python is not installed on your machine you can install it using *pip install mysql-connector-python*
 
-click==7.1.2
-Flask==1.1.2
-itsdangerous==1.1.0
-Jinja2==2.11.2
-MarkupSafe==1.1.1
-mysql-connector-python==8.0.22
-protobuf==3.14.0
-six==1.15.0
-Werkzeug==1.0.1
+click==7.1.2 , Flask==1.1.2 , itsdangerous==1.1.0 , Jinja2==2.11.2, MarkupSafe==1.1.1, mysql-connector-python==8.0.22, protobuf==3.14.0, six==1.15.0, Werkzeug==1.0.1
 
 ### Set Up Flask Server [2]
 | Step |      Task                | Windows |Mac / Linux|
@@ -87,8 +78,22 @@ Werkzeug==1.0.1
 | 2    | set environmental variables  | SET FLASK_APP=server|export FLASK_APP=server |
 | 3    | set DEBUG MODE   | export FLASK_ENV=development |export FLASK_DEBUG=1 |
 | 4    | run flask server   | flask run |flask run |
-| 5    | open web app on local host   | http://127.0.0.1:5000/ |http://127.0.0.1:5000/ |
-| 6    | login   | username = admin & password = admin  |username = admin & password = admin  |
+
+
+### Running Web App - Open Orders Management System
+| Step |      Task                | Instructions |
+|------|---------------------------|---------|
+| 1    | open web app on local host   | http://127.0.0.1:5000/ |
+| 2    | home page   | click on the login button   |
+| 3    | Login   | enter username = admin & password = admin and click on login button   |
+| 4    | Create New Order   | click on Create Button, then complete the form and click on create button or back button. Then refresh your browser to see the new order |
+| 5    | Get Latest USD_EUR_FXRATE   |click on Latest USD_EUR_FXRATE button to display latest fx rate and date of last update |
+| 6    | Update USD_EUR_FXRATE   |click on Update USD_EUR_FXRATE button to update the table, refresh your browser to see the updated table |
+| 7    | Update   |click on Update button, then edit the order details in the form and click the update button to update the table, refresh your browser to see the updated row |
+| 8    | Delete   |click on delete button to delete the order from the table, refresh your browser to see the updated table |
+| 9    | Add / Update Customer   |click on Add / Update Customer button to open Customer List screen, where you can create / update or delete a customer, when finished refresh your browser to see the updated table |
+| 10    | Open Orders   |click on Open Orders button to return to Open Orders Management System|
+| 11    | Logout   |click on Logout button to end session|
 
 ### Running Web App on Pythonanywhere
 | Step |      Task                | Windows |Mac / Linux|
@@ -106,9 +111,9 @@ Werkzeug==1.0.1
 [2] Beatty, A., “DR8.2 Flask clean ,”
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://web.microsoftstream.com/video/a7d9ea86-c2f4-4104-888a-569b4a391808?list=studio
 [3] Vain, M., “Foreign exchange rates API with currency conversion ,”
-2020, [Online; accessed 27-December-2020]. [Online]. Available: https://exchangeratesapi.io/
-
-
+2017, [Online; accessed 27-December-2020]. [Online]. Available: https://exchangeratesapi.io/
+[4] Github, “Cloning a repository ,”
+2020, [Online; accessed 27-December-2020]. [Online]. Available: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 ## Contact
 
 Paul Caulfield -  paul.caulfield@se.com & g00376342@gmit.ie
