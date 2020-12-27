@@ -366,7 +366,7 @@
             cell8 = rowElem.insertCell(7)
             cell8.innerHTML = order.USD_EUR_FXRATE
             cell9 = rowElem.insertCell(8)
-            cell9.innerHTML = ((order.OPEN_QTY * (order.UNIT_PRICE_USD/order.USD_EUR_FXRATE)).toFixed(2))
+            cell9.innerHTML = ((order.OPEN_QTY * (order.UNIT_PRICE_USD/order.USD_EUR_FXRATE)).toFixed(2)) // calculate Open EUR and round to 2 places decimals
             cell10 = rowElem.insertCell(9)
             cell10.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
             cell11 = rowElem.insertCell(10)
