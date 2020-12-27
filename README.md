@@ -27,17 +27,18 @@ The repository contains the following:
 
 | Part |      Title                | Description |Link|
 |------|---------------------------|---------|------|
-| 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |server.py|
-| 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations |staticpages/index.html|
+| 1    | server.py | A basic Flask server that has a REST API, (to perform CRUD operations) |https://github.com/pcaulfie/FX-Rates-API/blob/main/server.py|
+| 2    | index.html | A web interface, using AJAX calls, to perform CRUD operations on orders table |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/index.html|
+| 3    | customer.html | A web interface, using AJAX calls, to perform CRUD operations on orders table |https://github.com/pcaulfie/FX-Rates-API/blob/main/staticpages/customer.html|
+| 1    | initdb.sql | A file containing the mysql commands used to create two tables in a mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/initdb.sql|
+| 1    | dbconfigtemplate | A file containing the configuration details needed to connect to the mysql database |https://github.com/pcaulfie/FX-Rates-API/blob/main/dbconfigtemplate.py|
+| 1    | OrdersDao.py | A data access object (DAO) that provides an interface to the MYSQL database |https://github.com/pcaulfie/FX-Rates-API/blob/main/OrdersDao.py|
+| 1    | TestOrdersDao.py | A file used to test the OrdersDao is working correctly before implementing it on a Flask server. |https://github.com/pcaulfie/FX-Rates-API/blob/main/TestOrdersDao.py|
+| 1    | Requirements.txt | A file listing all packages needed to run the application |https://github.com/pcaulfie/FX-Rates-API/blob/main/requirements.txt|
+| 1    |.gitignore | A file used to tell git which files are not needed to be added to the repository. |https://github.com/pcaulfie/FX-Rates-API/blob/main/.gitignore|
 
 *Main Web App - Local Host*
-1. server.py - A basic Flask server that has a REST API, (to perform CRUD operations) 
-1. index.html (located in static pages folder) - A web interface, using AJAX calls, to perform CRUD operations
-1. initdb.sql - A file containing the mysql commands used to create two tables in a mysql database
-1. dbconfigtemplate - A file containing the configuration details needed to connect to the mysql database
-1. OrdersDao - A data access object (DAO) that provides an interface to the MYSQL database 
-1. TestOrdersDao - A files used to test the OrdersDao is working correctly before implementing it on a Flask server.
-1. Requirements.txt
+
 1. Gitignore file
 1. Licence
 1. Readme
