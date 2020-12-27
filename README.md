@@ -14,7 +14,7 @@ The objective of this project is as follows:
 1. Create a web application called Open Orders Management System to perform CRUD operations on two database tables 'Orders' and 'Customers'. 
 1. Normalise the two databases using Foreign Key to ensure that open orders cannot be created for a customer if customer doesn’t  exist in customer table. To achieve this I added a foreign key constraint as follows:  FOREIGN KEY (CUSTOMER_NUMBER) REFERENCES CUSTOMER(ID)  ON UPDATE CASCADE ON DELETE RESTRICT
 1. Display value of Open Orders in Euros using latest USDEUR FX Exchange rate which can be refreshed daily using 3rd Party API Interface. The open order value is stored in base currency which is US Dollar (USD) in the database. The 3rd Party API I am using is [exchangeratesapi](https://exchangeratesapi.io/) which provides current and historical foreign exchange rates published by the European Central Bank[3]. 
-1. Host the web application online. I have hosted a lite version of web application hosted on Pythonanywhere, enabling CRUD operations on one database table 'Orders'. Due to time constraints, I did not have time to test customer.html on pythonanywhere. I also did not implement login.html page as I encountered some errors and did not have time to troubleshoot them. 
+1. Host the web application online. I have hosted a lite version of web application hosted on Pythonanywhere, enabling CRUD operations on one database table 'Orders'. Due to time constraints, I did not have time to test customer.html on pythonanywhere. I did not implement login.html page, as I encountered some errors and did not have time to troubleshoot them. 
 
 ![Image of currency](staticpages/currency.jpg)
 
