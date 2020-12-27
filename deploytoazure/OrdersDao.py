@@ -99,6 +99,7 @@ class OrdersDao:
         cursor.execute(sql, values)
         self.db.commit()
         cursor.close()
+        return orders
 
     def update(self, orders):
        cursor = self.getCursor()
@@ -110,6 +111,7 @@ class OrdersDao:
        cursor.execute(sql, values)
        self.db.commit()
        cursor.close()
+       return orders
 
     def delete(self, ID):
        cursor = self.getCursor()
