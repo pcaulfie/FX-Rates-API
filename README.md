@@ -106,14 +106,15 @@ click==7.1.2 , Flask==1.1.2 , itsdangerous==1.1.0 , Jinja2==2.11.2, MarkupSafe==
 - **[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)**
 
 ### References
-[1] Beatty, A., “DR8.1 Virtual Environment ,”
+* [1] Beatty, A., “DR8.1 Virtual Environment ,”
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://web.microsoftstream.com/video/bc3af8e1-2709-4caa-9af2-dd9510919a37?list=studio
-[2] Beatty, A., “DR8.2 Flask clean ,”
+* [2] Beatty, A., “DR8.2 Flask clean ,”
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://web.microsoftstream.com/video/a7d9ea86-c2f4-4104-888a-569b4a391808?list=studio
-[3] Vain, M., “Foreign exchange rates API with currency conversion ,”
+* [3] Vain, M., “Foreign exchange rates API with currency conversion ,”
 2017, [Online; accessed 27-December-2020]. [Online]. Available: https://exchangeratesapi.io/
-[4] Github, “Cloning a repository ,”
+* [4] Github, “Cloning a repository ,”
 2020, [Online; accessed 27-December-2020]. [Online]. Available: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository
+
 ## Contact
 
 Paul Caulfield -  paul.caulfield@se.com & g00376342@gmit.ie
