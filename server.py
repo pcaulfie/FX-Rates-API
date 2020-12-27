@@ -4,7 +4,8 @@ from OrdersDao import ordersDao
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 app.secret_key = 'someSecrtetasdrgsadfgsdfg3ko'
 site = 'http://127.0.0.1:5000/index.html'
-
+#host= window.location.origin
+#site = host+"/index.html",
 @app.route('/')
 def index():
     count=0
@@ -62,6 +63,14 @@ def getAll():
         abort(401)
     return jsonify(ordersDao.getAll())
 
+#get all
+
+@app.route('/customer')
+def getCust():
+    if not 'username' in session:
+        abort(401)
+    return jsonify(ordersDao.getCust())
+
 #find by ID
 
 @app.route('/orders/<int:ID>')
@@ -91,6 +100,20 @@ def create():
     return jsonify(ordersDao.create(order))
 
     return "served by Create "
+
+# create customer
+@app.route('/customer', methods=['POST'])
+def createcust():
+   
+    if not request.json:
+        abort(400)
+
+    customer = {
+        "CUSTOMER_NAME": request.json["CUSTOMER_NAME"],
+        "ZONE": request.json["ZONE"]        
+    }
+    return jsonify(ordersDao.createcust(customer))
+
 
 #update
 # curl -X PUT -d "{\"USD_EUR_FXRATE\":1.33333}" -H Content-Type:application/json http://127.0.0.1:5000/orders
@@ -135,6 +158,23 @@ def updateById(ID):
     
     return jsonify(currentOrder)
 
+
+@app.route('/customer/<int:ID>', methods=['PUT'])
+def updateCustId(ID):
+    foundCust=ordersDao.findByCust(ID)
+    # print (foundCust)
+    if foundCust == {}:
+        return jsonify({}), 404
+    currentCust = foundCust
+    if 'CUSTOMER_NAME' in request.json:
+        currentCust['CUSTOMER_NAME'] = request.json['CUSTOMER_NAME']
+    if 'ZONE' in request.json:
+        currentCust['ZONE'] = request.json['ZONE']
+        
+    ordersDao.updateCustId(currentCust)
+    
+    return jsonify(currentCust)
+
 #delete
 # curl -X DELETE http://127.0.0.1:5000/orders/14
 
@@ -143,6 +183,18 @@ def delete(ID):
     if not 'username' in session:
         return redirect('login')
     ordersDao.delete(ID)
+
+    return jsonify({"done":True})
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+@app.route('/customer/<int:ID>', methods=['DELETE'])
+def deleteCust(ID):
+    if not 'username' in session:
+        return redirect('login')
+    ordersDao.deleteCust(ID)
 
     return jsonify({"done":True})
 

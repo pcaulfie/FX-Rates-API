@@ -14,7 +14,7 @@ class OrdersDao:
         )
         #print ("connection made")
 
-    def createcust(self, customer):
+    def create(self, customer):
         cursor = self.db.cursor()
         sql = "insert into customer (CUSTOMER_NAME, ZONE) values (%s,%s)"
         values = [
@@ -64,29 +64,6 @@ class OrdersDao:
                 order[colName] = value
         return order
 
-    def getCust(self):
-        cursor = self.db.cursor()
-        sql = 'select * from customer'
-        cursor.execute(sql)
-        results = cursor.fetchall()
-        returnArray = []
-        #print(results)
-        for result in results:
-            resultAsDict2 = self.convertToDict2(result)
-            returnArray.append(resultAsDict2)
-
-        return returnArray
-
-    def convertToDict2(self, result):
-        colnames = ['ID','CUSTOMER_NAME','ZONE']
-        customer = {}
-
-        if result:
-            for i , colName in enumerate(colnames):
-                value = result[i]
-                customer[colName] = value
-        return customer    
-
     def findById(self, ID):
         cursor = self.db.cursor()
         sql = 'select * from orders where ID = %s'
@@ -95,13 +72,13 @@ class OrdersDao:
         result = cursor.fetchone()
         return self.convertToDict(result)
 
-    def findByCust(self, ID):
+    def findByCust(self, CUSTOMER_NUMBER):
         cursor = self.db.cursor()
-        sql = 'select * from customer where ID = %s'
-        values = [ ID ]
+        sql = 'select * from orders where CUSTOMER_NUMBER = %s'
+        values = [ CUSTOMER_NUMBER ]
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        return self.convertToDict2(result)    
+        return self.convertToDict(result)    
 
     def updateById(self, orders):
         cursor = self.db.cursor()
@@ -120,17 +97,6 @@ class OrdersDao:
         self.db.commit()
         return orders
 
-    def updateCustId(self, customer):
-        cursor = self.db.cursor()
-        sql = "update customer set CUSTOMER_NAME = %s, ZONE = %s"
-        values = [
-            customer['CUSTOMER_NAME'],
-            customer['ZONE']                  
-        ]
-        cursor.execute(sql, values)
-        self.db.commit()
-        return customer
-
     def update(self, orders):
        cursor = self.db.cursor()
        sql = "update orders set USD_EUR_FXRATE = %s"
@@ -145,14 +111,6 @@ class OrdersDao:
     def delete(self, ID):
        cursor = self.db.cursor()
        sql = 'delete from orders where ID = %s'
-       values = [ID]
-       cursor.execute(sql, values)
-       
-       return {}
-    
-    def deleteCust(self, ID):
-       cursor = self.db.cursor()
-       sql = 'delete from customer where ID = %s'
        values = [ID]
        cursor.execute(sql, values)
        

@@ -4,18 +4,30 @@ import dbconfig as cfg
 
 class OrdersDao:
     db = ""
-    def __init__(self):
-        self.db = mysql.connector.connect(
-            host = cfg.mysql['host'],
-            user= cfg.mysql['username'],
-            password = cfg.mysql['password'],
-            database =cfg.mysql['database']
-            # add configuration file instead of hardcoding the above
+    def initConnectToDB(self):
+        db = mysql.connector.connect(
+            host=       cfg.mysql['host'],
+            user=       cfg.mysql['username'],
+            password=   cfg.mysql['password'],
+            database=   cfg.mysql['database'],
+            pool_name='my_connection_pool',
+            pool_size=10
         )
-        #print ("connection made")
+        return db
+
+    def getConnection(self):
+        db = mysql.connector.connect(
+            pool_name='my_connection_pool'
+        )
+        return db
+
+    def __init__(self): 
+        db=self.initConnectToDB()
+        db.close()
 
     def create(self, customer):
-        cursor = self.db.cursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = "insert into customer (CUSTOMER_NAME, ZONE) values (%s,%s)"
         values = [
             customer['CUSTOMER_NAME'],
@@ -23,10 +35,13 @@ class OrdersDao:
         ]
         cursor.execute(sql, values)
         self.db.commit()
-        return cursor.lastrowid
+        lastRowId=cursor.lastrowid
+        db.close()
+        return lastRowId
 
     def create(self, orders):
-        cursor = self.db.cursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = "insert into orders (ORDER_NUMBER,CUSTOMER_NUMBER,PART,CURR_CODE,OPEN_QTY,UNIT_PRICE_USD,USD_EUR_FXRATE) values (%s,%s,%s,%s,%s,%s,%s)"
         values = [
             orders['ORDER_NUMBER'],
@@ -39,10 +54,13 @@ class OrdersDao:
         ]
         cursor.execute(sql, values)
         self.db.commit()
-        return cursor.lastrowid
+        lastRowId=cursor.lastrowid
+        db.close()
+        return lastRowId
 
     def getAll(self):
-        cursor = self.db.cursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = 'select * from orders'
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -51,7 +69,7 @@ class OrdersDao:
         for result in results:
             resultAsDict = self.convertToDict(result)
             returnArray.append(resultAsDict)
-
+        db.close()
         return returnArray
 
     def convertToDict(self, result):
@@ -65,23 +83,19 @@ class OrdersDao:
         return order
 
     def findById(self, ID):
-        cursor = self.db.cursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = 'select * from orders where ID = %s'
         values = [ID]
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        return self.convertToDict(result)
-
-    def findByCust(self, CUSTOMER_NUMBER):
-        cursor = self.db.cursor()
-        sql = 'select * from orders where CUSTOMER_NUMBER = %s'
-        values = [ CUSTOMER_NUMBER ]
-        cursor.execute(sql, values)
-        result = cursor.fetchone()
-        return self.convertToDict(result)    
+        order=self.convertToDictionary(result)
+        db.close()
+        return order
 
     def updateById(self, orders):
-        cursor = self.db.cursor()
+        db = self.getConnection()
+        cursor = db.cursor()
         sql = "update orders set ORDER_NUMBER = %s, CUSTOMER_NUMBER = %s, PART = %s, CURR_CODE = %s, OPEN_QTY = %s, UNIT_PRICE_USD = %s,USD_EUR_FXRATE = %s where ID = %s"
         values = [
             orders['ORDER_NUMBER'],
@@ -95,10 +109,12 @@ class OrdersDao:
         ]
         cursor.execute(sql, values)
         self.db.commit()
+        db.close()
         return orders
 
     def update(self, orders):
-       cursor = self.db.cursor()
+       db = self.getConnection()
+       cursor = db.cursor()
        sql = "update orders set USD_EUR_FXRATE = %s"
        values = [
            orders['USD_EUR_FXRATE']
@@ -106,14 +122,17 @@ class OrdersDao:
        ]
        cursor.execute(sql, values)
        self.db.commit()
+       db.close()
        return orders
 
     def delete(self, ID):
-       cursor = self.db.cursor()
+       db = self.getConnection()
+       cursor = db.cursor()
        sql = 'delete from orders where ID = %s'
        values = [ID]
        cursor.execute(sql, values)
-       
+       self.db.commit()
+       db.close()
        return {}
 
 ordersDao = OrdersDao()    
