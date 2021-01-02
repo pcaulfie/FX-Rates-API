@@ -61,7 +61,7 @@
             <div id="output3"></div>
             <table id="orderTable" class="table">
                 <tr>
-                    <th>ID</th><th>ORDER_NUMBER</th><th>CUSTOMER_NUMBER</th><th>PART</th><th>CURR_CODE</th><th>OPEN_QTY</th><th>UNIT_PRICE_USD</th><th>USD_EUR_FXRATE</th><th></th><th></th>
+                    <th>ID</th><th>ORDER_NUMBER</th><th>CUSTOMER_NUMBER</th><th>PART</th><th>CURR_CODE</th><th>OPEN_QTY</th><th>UNIT_PRICE_USD</th><th>USD_EUR_FXRATE</th><th>OPEN_EUR</th><th></th><th></th>
                 </tr>
                 
             </table>
@@ -358,9 +358,11 @@
             cell8 = rowElem.insertCell(7)
             cell8.innerHTML = order.USD_EUR_FXRATE
             cell9 = rowElem.insertCell(8)
-            cell9.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell9.innerHTML = ((order.OPEN_QTY * (order.UNIT_PRICE_USD/order.USD_EUR_FXRATE)).toFixed(2)) // calculate Open EUR and round to 2 places decimals
             cell10 = rowElem.insertCell(9)
-            cell10.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+            cell10.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell11 = rowElem.insertCell(10)
+            cell11.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
             }
             
         populateTable();   
