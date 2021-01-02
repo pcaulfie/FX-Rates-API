@@ -62,7 +62,7 @@ The objective of this project is as follows:
 | 2    | Run a virtual environment  | .\venv\scripts\activate.bat |source .\venv\bin\activate|
 | 3    | See the packages  | pip freeze |pip freeze|
 | 4    | Save them to a file  | pip freeze > requirements.txt |pip freeze > requirements.txt|
-| 5    | Load packages  | pip install - r requirements.txt |pip install - r requirements.txt|
+| 5    | Load packages  | python -m pip install - r requirements.txt |pip install - r requirements.txt|
 | 6    | Exit  | deactivate |deactivate|
 | 7    | Add /venv to .gitignore file  |  | |
 
